@@ -1,68 +1,49 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 export interface Task {
-  id: number;
-  assignedTo: string;
-  status: string;
-  dueDate: string;
-  priority: string;
-  description: string;
+    id: number;
+    assignedTo: string;
+    status: string;
+    dueDate: Date;
+    priority: string;
+    description: string;
 }
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root'
 })
 export class TaskService {
-  private tasksSubject = new BehaviorSubject<Task[]>(this.loadTasks()); // Load tasks from local storage
-  tasks$ = this.tasksSubject.asObservable();
+    private tasksSubject = new BehaviorSubject<Task[]>(this.loadTasks());
+    tasks$ = this.tasksSubject.asObservable();
+    private apiUrl = 'http://localhost:3000/api/tasks'; // Update with your API endpoint
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {} // Inject PLATFORM_ID
+    constructor(private http: HttpClient) {}
 
-  private loadTasks(): Task[] {
-    if (isPlatformBrowser(this.platformId)) { // Check if running in browser
-      const tasksJson = localStorage.getItem('tasks'); // Get tasks from local storage
-      return tasksJson ? JSON.parse(tasksJson) : []; // Parse JSON or return an empty array
+    private loadTasks(): Task[] {
+        const tasks = localStorage.getItem('tasks');
+        return tasks ? JSON.parse(tasks) : [];
     }
-    return []; // Return an empty array if not in browser
-  }
 
-  private saveTasks(tasks: Task[]): void {
-    if (isPlatformBrowser(this.platformId)) { // Check if running in browser
-      localStorage.setItem('tasks', JSON.stringify(tasks)); // Save tasks to local storage
+    getTasks(): Observable<Task[]> {
+        return this.http.get<Task[]>(this.apiUrl);
     }
-  }
 
-  getTasks(): Task[] {
-    return this.tasksSubject.getValue();
-  }
-
-  addTask(task: Task): void {
-    const tasks = this.getTasks();
-    tasks.push(task);
-    this.tasksSubject.next(tasks);
-    this.saveTasks(tasks); // Save tasks after adding
-  }
-
-  updateTask(updatedTask: Task): void {
-    const tasks = this.getTasks().map(task =>
-      task.id === updatedTask.id ? updatedTask : task
-    );
-    this.tasksSubject.next(tasks);
-    this.saveTasks(tasks); // Save tasks after updating
-  }
-
-  deleteTask(id: number): void {
-    const tasks = this.getTasks().filter(task => task.id !== id);
-    this.tasksSubject.next(tasks);
-    this.saveTasks(tasks); // Save tasks after deletion
-  }
-
-  clearTasks(): void {
-    if (isPlatformBrowser(this.platformId)) { // Check if running in browser
-      localStorage.removeItem('tasks'); // Clear tasks from local storage
-      this.tasksSubject.next([]); // Emit an empty array
+    addTask(task: Task): Observable<Task> {
+        return this.http.post<Task>(this.apiUrl, task);
     }
-  }
+
+    updateTask(task: Task): Observable<Task> {
+        return this.http.put<Task>(`${this.apiUrl}/${task.id}`, task);
+    }
+
+    deleteTask(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
+
+    clearTasks(): void {
+        localStorage.removeItem('tasks');
+        this.tasksSubject.next([]); // Emit an empty array
+    }
 }
