@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f0f4f8; /* Light grey background for the entire application */
+    font-family: 'Arial', sans-serif; /* Use a clean font for readability */
+    margin: 0; /* Remove default margin */
+  }
+  
+  .container {
+    background-color: #ffffff; /* White background for containers */
+    border-radius: 10px; /* Rounded corners for all containers */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    padding: 20px; /* Add padding for inner spacing */
+    margin-top: 20px; /* Margin at the top */
+  }
+  

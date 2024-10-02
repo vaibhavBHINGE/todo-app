@@ -1,0 +1,64 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Task List</h2>
+  
+  <div class="d-flex justify-content-between mb-3">
+    <button class="btn btn-primary" [routerLink]="['/add-task']">
+      <i class="fas fa-plus"></i> Add Task
+    </button>
+    <button class="btn btn-danger" (click)="openClearAllModal()">
+      <i class="fas fa-trash"></i> Clear All Tasks
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Assigned To</th>
+          <th>Status</th>
+          <th>Due Date</th>
+          <th>Priority</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{ task.assignedTo }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.dueDate | date: 'shortDate' }}</td>
+          <td>{{ task.priority }}</td>
+          <td>{{ task.description }}</td>
+          <td>
+            <a [routerLink]="['/edit-task', task.id]" class="btn btn-warning btn-sm">Edit</a>
+            <a [routerLink]="['/delete-task', task.id]" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+        <tr *ngIf="tasks.length === 0">
+          <td colspan="6" class="text-center">No tasks available.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal fade" id="clearAllModal" tabindex="-1" role="dialog" aria-labelledby="clearAllModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document"> <!-- Center the modal vertically -->
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="clearAllModalLabel">Confirm Clear All Tasks</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to clear all tasks? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" (click)="clearAllTasks()" data-dismiss="modal">Clear All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

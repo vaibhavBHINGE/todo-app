@@ -1,0 +1,20 @@
+.modal-content {
+    width: 90%; /* Reduce width to 90% of the viewport */
+    max-width: 400px; /* Maximum width of the modal */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .modal-header {
+    background-color: #dc3545; /* Bootstrap Danger Color */
+    color: white;
+    border-bottom: none; /* Remove bottom border */
+  }
+  
+  .modal-body {
+    padding: 20px; /* Padding around the body */
+  }
+  
+  .modal-footer {
+    border-top: none; /* Remove top border */
+  }
+  

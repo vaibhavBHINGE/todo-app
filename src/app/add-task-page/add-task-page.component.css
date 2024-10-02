@@ -1,0 +1,23 @@
+.container {
+  background-color: #f8f9fa; /* Light background for contrast */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding around the container */
+}
+
+.card {
+  border-radius: 10px; /* Rounded corners for the card */
+}
+
+.card-header {
+  font-size: 1.25rem; /* Larger font for the header */
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px; /* Less padding on smaller screens */
+  }
+
+  .form-control {
+    font-size: 14px; /* Slightly smaller text on mobile */
+  }
+}

@@ -1,0 +1,66 @@
+.container {
+    background-color: #f8f9fa; /* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding around the container */
+  }
+  
+  h2 {
+    color: #343a40; /* Dark color for the heading */
+    font-family: 'Arial', sans-serif; /* Clean font */
+  }
+  
+  .table {
+    border-radius: 8px; /* Rounded corners for table */
+    overflow: hidden; /* Prevents border-radius from affecting the child elements */
+  }
+  
+  .table-dark {
+    background-color: #343a40; /* Dark header for table */
+    color: white; /* White text for better contrast */
+  }
+  
+  .table th, .table td {
+    vertical-align: middle; /* Center align content */
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #e9ecef; /* Light grey on hover */
+  }
+  
+  .btn {
+    transition: background-color 0.3s; /* Smooth transition for button colors */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darken primary button on hover */
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333; /* Darken danger button on hover */
+  }
+  
+  .btn-warning:hover {
+    background-color: #856404; /* Darken warning button on hover */
+  }
+  .modal-header {
+    border-bottom: none; /* Remove bottom border for a cleaner look */
+  }
+  
+  .modal-title {
+    font-size: 1.5rem; /* Increase font size for the title */
+  }
+  
+  .modal-body {
+    font-size: 1.1rem; /* Slightly larger text for readability */
+  }
+  
+  .btn {
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333; /* Darken danger button on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+  }
+  
